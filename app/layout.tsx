@@ -1,32 +1,19 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
-import { cn } from '@/utils/cn';
-import { ThemeProvider } from './provider';
-
-const inter = Inter({ subsets: ['latin'] });
+import { Analytics } from '@vercel/analytics/next'
+import type { Metadata, Viewport } from 'next'
+import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Bhargav Thakar',
-};
+  title: 'Bhargav Thakar — Front-End Developer',
+  description: 'Portfolio of Bhargav Thakar, a front-end developer building modern, responsive web interfaces with React.js, Next.js and TypeScript.',
+  generator: 'v0.app',
+}
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en">
-      <body className={cn(inter.className)}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
-  );
+export const viewport: Viewport = {
+  colorScheme: 'dark',
+  themeColor: '#11110f',
+  userScalable: true,
+}
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return <html lang="en"><body className="antialiased">{children}{process.env.NODE_ENV === 'production' && <Analytics />}</body></html>
 }
